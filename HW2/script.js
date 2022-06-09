@@ -20,22 +20,20 @@ for (let i = 0; i < 11; i++) {
 document.write('рівносторонній трикутник' + '<br>')
 
 for (let i = 0; i < 9; i++) {
-	for (let j = 1; j < 9 - i; j++) {
-		document.write('&nbsp')
+	for (let j = 9; j > i - 1; j--) {
+		document.write('&nbsp', '&nbsp')
 	}
-	for (let f = 1; f <= 2 * i - 1; f++) {
-		document.write('$')
+	for (let f = 0; f < i + 1; f++) {
+		document.write('$', '&nbsp','&nbsp')
 	}
 	document.write('<br>')
-}
-//писав ріносторонній трикутник в java, код по логіці однаковий,
-//тут трабл у чомусь іншому
+} 
 
 document.write('ромб' + '<br>')
 
 for (let i = 1; i < 5; i++) {
 	for (let j = 0 + i; j < 5; j++) {
-		document.write('&nbsp')
+		document.write('&nbsp', '&nbsp')
 	}
 	for (let j = 1; j < i * 2; j++) {
 		document.write('$')
@@ -44,14 +42,14 @@ for (let i = 1; i < 5; i++) {
 }
 for (let i = 5; i >= 0; i--) {
 	for (let j = 0 + i; j < 5; j++) {
-		document.write('&nbsp')
+		document.write('&nbsp','&nbsp',)
 	}
 	for (let j = 1; j < i * 2; j++) {
 		document.write('$')
 	}
 	document.write('<br>')
 }
-//з ромбом такий самий мем як з трикутником
+//
 document.write('///////////////////////////////////' + '<br>')
 let a, b, result
 a = parseFloat(prompt('1st number'))
