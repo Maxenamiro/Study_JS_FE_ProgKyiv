@@ -4,28 +4,24 @@ const dox = {
 	footer: '',
 	date: '',
 	app: {
-		header: { info: '' },
-		body: { info: '' },
-		footer: { info: '' },
-		date: { info: '' },
-		print: function () {
-			document.getElementById('head').innerHTML = `${doc.app.head.info}`
-			document.getElementById('body').innerHTML = `${doc.app.body.info}`
-			document.getElementById('myDate').innerHTML = `${doc.app.myDate.info}`
-			document.getElementById('footer').innerHTML = `${doc.app.footer.info}`
+		header: { info: prompt('Enter something head') },
+		body: { info: prompt('Enter something body') },
+		footer: { info: prompt('Enter something footer') },
+		date: { info: new Date() },
+		showMe: function () {
+			document.write(dox.app.header.info + '<br>')
+			document.write(dox.app.body.info + '<br>')
+			document.write(dox.app.footer.info + '<br>')
+			document.write(dox.app.date.info + '<br>')
 		},
 	},
-}
-function fill() {
-	dox.header = prompt('Введіть текст header')
-	dox.body = prompt('Введіть текст body')
-	dox.footer = prompt('Введіть текст footer')
-	dox.date = prompt('Введіть текст date')
-	document.write('<br>')
-	dox.app.header = prompt('Введіть текст header')
-	dox.app.body = prompt('Введіть текст body')
-	dox.app.footer = prompt('Введіть текст footer')
-	dox.app.date = prompt('Введіть текст date')
+	result: function () {
+		dox.head = document.write()
+		dox.body = document.write()
+		dox.footer = document.write()
+		dox.date = document.write()
+	},
 }
 
-fill()
+dox.app.showMe()
+dox.result()
