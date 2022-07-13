@@ -6,27 +6,56 @@
 let counter = 0,
 	intervalHandler
 
-const get = (id) => document.getElementById(id)
+let hor = document.querySelector('.hours')
+let min = document.querySelector('.minutes')
+let sec = document.querySelector('.seconds')
 
-let stopWatchScreen = document.getElementsByClassName('.stopwatch-display')
+let stopWatchScreen = document.querySelector('.stopwatch-display')
+
+let start = document.querySelector('.start')
+let pause = document.querySelector('.stop')
+let reset = document.querySelector('.reset')
 
 let zero = ''
 
-const count = () => {
-	get('seconds').innerText = counter
-	counter++
+let counter0 = 00
+let counter1 = 00
+let counter2 = 00
+
+const secCount = () => {
+	counter0 += 10
+	sec.textContent = counter0
+	if (counter0 === 1000) {
+		counter1++
+		counter0 = 00
+		min.textContent = counter1
+	} else if (counter1 === 60) {
+		counter2++
+		counter1 = 00
+		hor.textContent = counter2
+	}
 }
 
-get('start').onclick = () => {
-	intervalHandler = setInterval(count, 5)
-	stopWatchScreen.classList.remove('#green', '#red', '#grey')
-	stopWatchScreen.classList.add('#green')
+start.onclick = () => {
+	stopWatchScreen.classList.remove('green', 'red', 'silver')
+	stopWatchScreen.classList.add('green')
+
+	timer = setInterval(secCount, 10)
 }
-get('stop').onclick = () => {
-	clearInterval(intervalHandler)
-	stopWatchScreen.classList.remove('#green', '#red', '#grey')
-	stopWatchScreen.classList.add('#red')
+
+pause.onclick = () => {
+	stopWatchScreen.classList.remove('green', 'red', 'silver')
+	stopWatchScreen.classList.add('red')
+	clearInterval(timer)
 }
-get('reset').onclick = () => {
-	clearTimeout(zero)
+reset.onclick = () => {
+	stopWatchScreen.classList.remove('green', 'red', 'silver')
+	stopWatchScreen.classList.add('silver')
+	clearInterval(timer)
+	counter0 = 00
+	counter1 = 00
+	counter2 = 00
+	sec.textContent = counter0
+	min.textContent = counter1
+	hor.textContent = counter2
 }
