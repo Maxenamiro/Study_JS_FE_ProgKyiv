@@ -1,23 +1,18 @@
-/* Устанавливаем индекс слайда по умолчанию */
 let slideIndex = 1
 showSlides(slideIndex)
 
-/* Увеличиваем индекс на 1 — показываем следующий слайд*/
 function nextSlide() {
 	showSlides((slideIndex += 1))
 }
 
-/* Уменьшает индекс на 1 — показываем предыдущий слайд*/
 function previousSlide() {
 	showSlides((slideIndex -= 1))
 }
 
-/* Устанавливаем текущий слайд */
 function currentSlide(n) {
 	showSlides((slideIndex = n))
 }
 
-/* Функция перелистывания */
 function showSlides(n) {
 	let i
 	let slides = document.getElementsByClassName('item')
@@ -29,14 +24,8 @@ function showSlides(n) {
 		slideIndex = slides.length
 	}
 
-	/* Проходим по каждому слайду в цикле for */
 	for (let slide of slides) {
 		slide.style.display = 'none'
 	}
 	slides[slideIndex - 1].style.display = 'block'
 }
-
-Resources
-//'https://i.kym-cdn.com/entries/icons/mobile/000/037/043/monkey_sony_walkman.jpg',
-//'https://i.imgflip.com/5a4pil.jpg',
-//'http://pm1.narvii.com/7760/af1f89b0123ef55504057eeeda795ac358c41abar1-325-273v2_00.jpg',
