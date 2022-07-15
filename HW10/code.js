@@ -1,56 +1,45 @@
-const btn = document.querySelector('.keys'),
-	display = document.querySelector('.display > input')
-
-//     btn.addEventListener("click", function (e) {
-//         calc.value1 += e.target.value
-//         show(calc.value1, display)
-//     })
-// })
-
-// const calc = {
-//     value1 : "",
-//     value2 : "",
-// }
-
-// function show (value, el) {
-//  el.value = value
-// }
-let a = '' //число 1
-let b = '' //число 2
-let sign = '' // + - / *
+let firstNumber, secondNumber
+let calc = '' //число 2
+let counter = 0
+let result
 let memory = ''
 let clearMemory = false
 let finish = false
 
-const digit = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
-const action = ['-', '+', '/', '*']
+const buttonsCollection = document.getElementsByClassName('button')
+const screen = document.getElementsByClassName('screen')
+const buttons = Array.from(buttonsCollection)
 
-// екран
-const out = document.querySelector('type[text]') //работает?
+buttons.map((button) => {
+	button.addEventListener('click', () => {
+		if (button.value == '=') {
+			counter = 0
+			result = eval(calc)
+			return (screen[0].value = result)
+		}
 
-clearAll = () => {
-	a = ''
-	b = ''
-	sign = ''
-	finish = false
-	out.textContent = 0
-}
+		if (button.value == 'C') {
+			screen[0].value = '0'
+			return (calc = ''), (result = '')
+		}
 
-document.querySelector('input[value = "C"]').onclick = clearAll
+        calc += button.value
+		screen[0].value = calc
 
-document.querySelector('keys').onclick = (event) => {
-	//натиснута не кнопка
-	if (!event.target.classList.contains('button')) return
-	// натиснута кнопка clearAll С
-	if (event.target.classList.contains('input[value = "C"]')) return
+		if (button.value == '/' ||button.value == '*' ||button.value == '+' ||button.value == '-') {
+            if (counter = 0) {
+                counter++;
+                calc += button.value
+                screen[0].value = calc
+            } else {
+                calc -= button.value
+                screen[0].value = calc
+            }
+        } else {
+            counter = 0
+        }
+        
+		}
+    )
+})
 
-	out.textContent = ''
-	//отримую натиснуту кнопку
-	const key = event.target.textContent
-
-	//якщо натиснута клавіша 0-9 або .
-	if (digit.includes(key)) {
-		a += key
-		console.log(a, b, sign)
-	}
-}
