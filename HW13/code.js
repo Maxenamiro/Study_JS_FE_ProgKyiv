@@ -59,14 +59,13 @@ homeworld строка - URL ресурса планеты, планеты,
 // })
 let arrPeople = []
 let save = []
-const url = 'https://swapi.dev/api/people'
 
-const data = fetch(url, { method: 'GET' })
+//const data = fetch(url, { method: 'GET' })
 
 class Pers {
-	constructor(name, birth, gender, homeWorld) {
+	constructor(name, birth_year, gender, homeWorld) {
 		this.name = name
-		this.birth = birth
+		this.birth_year = birth_year
 		this.gender = gender
 		this.homeWorld = homeWorld
 	}
@@ -80,10 +79,10 @@ class Pers {
 		const btn = document.createElement('button')
 		card.setAttribute('class', 'card')
 
-		cardName.innerText = ' Name: ${this.name}'
-		cardBirth.innerText = ' Birth: ${this.birth}'
-		cardGender.innerText = ' Gender: ${this.gender}'
-		cardHomeWorld.innerText = ' Homeworld: ${this.homeWorld}'
+		cardName.innerText = `Name: ${this.name}` 
+		cardBirth.innerText = `Birth: ${this.birth_year}`
+		cardGender.innerText = `Gender: ${this.gender}`
+		cardHomeWorld.innerText = `Homeworld: ${this.homeWorld}`
 		btn.innerText = 'save'
 		btn.setAttribute('id', this.name)
 
@@ -107,17 +106,19 @@ class Pers {
 		}
 	}
 }
+const url = 'https://swapi.dev/api/people'
+
 fetch(url)
 	.then((rez) => rez.json())
 	.then((rez) => {
 		rez.results.forEach((element) => {
 			let user = new Pers(
 				element.name,
-				element.birth,
+				element.birth_year,
 				element.gender,
-				element.homeWorld
+				element.homeworld
 			)
-			user.createCard()
+			user.aCard()
 			arrPeople.push(user)
 		})
 	})
