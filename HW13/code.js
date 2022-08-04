@@ -1,66 +1,5 @@
-/* Выполнить запрос на https://swapi.dev/api/people получить список героев звездных войн.
-
-Вывести каждого героя отдельной карточкой с указанием.
-Имени, половой принадлежности, рост, цвет кожи, 
-год рождения и планету на которой родился.
-            
-Создайте кнопку сохранить на каждой карточке.
-При нажатии кнопки записшите информацию в браузере
-            
-        Возможные свойства  :
-name строка - Имя этого человека.
-            
-birth_year строка - Год рождения человека
-в соответствии со вселенскими стандартами ДБЯ
-или ПБЯ - до битвы при Явине или после битвы при Явине.
-Битва при Явине - это битва, которая происходит в конце
-эпизода IV «Звездных войн»: Новая надежда.
-            
-            eye_color строка - Цвет глаз этого человека. Будет "неизвестно", если неизвестно, или "н / д", если у человека нет глаза.
-            
-gender строка - Пол этого человека. Либо «Мужской»,
-«Женский», либо «Неизвестный», «н / д», если у человека
-нет пола.
-            hair_color строка - Цвет волос этого человека. Будет "неизвестно", если неизвестно, или "н / п", если у человека нет волос.
-            
-            height строка - Рост человека в сантиметрах.
-            
-            mass строка - Масса человека в килограммах.
-            
-            skin_color строка - Цвет кожи этого человека.
-            
-homeworld строка - URL ресурса планеты, планеты,
-на которой этот человек родился или населяет.
-            
-            films array - массив URL-адресов киноресурсов, в которых был этот человек.
-            species array - массив URL-адресов ресурсов видов, к которым принадлежит этот человек.
-            starships array - Массив URL-адресов ресурсов звездолета, которые пилотировал этот человек.
-            vehicles array - массив URL-адресов ресурсов транспортного средства, которые пилотировал этот человек.
-            url строка - URL-адрес гипермедиа этого ресурса.
-            created строка - формат даты ISO 8601 времени создания этого ресурса.
-            edited строка - формат даты ISO 8601 времени, когда этот ресурс редактировался.
-            
-Для создания карточек испозуйте классы
-
-підключити ще якийсь стиль, фон, колір тексту*/
-
-//name, birth, gender, homeWorld
-
-//LESSON
-// const url = 'https://swapi.dev/api/people'
-
-// const data = fetch(url, { method: 'GET' })
-
-// let data1 = data.then((res) => res.json(), (error)=> console.error(error))
-
-// data1.then((argument) => {
-// 	document.write(argument.results)
-//         console.log(argument)
-// })
 let arrPeople = []
 let save = []
-
-//const data = fetch(url, { method: 'GET' })
 
 class Pers {
 	constructor(name, birth_year, gender, homeWorld) {
@@ -79,7 +18,7 @@ class Pers {
 		const btn = document.createElement('button')
 		card.setAttribute('class', 'card')
 
-		cardName.innerText = `Name: ${this.name}` 
+		cardName.innerText = `Name: ${this.name}`
 		cardBirth.innerText = `Birth: ${this.birth_year}`
 		cardGender.innerText = `Gender: ${this.gender}`
 		cardHomeWorld.innerText = `Homeworld: ${this.homeWorld}`
@@ -108,17 +47,40 @@ class Pers {
 }
 const url = 'https://swapi.dev/api/people'
 
-fetch(url)
-	.then((rez) => rez.json())
-	.then((rez) => {
-		rez.results.forEach((element) => {
-			let user = new Pers(
-				element.name,
-				element.birth_year,
-				element.gender,
-				element.homeworld
-			)
-			user.aCard()
-			arrPeople.push(user)
+const fetchCharacters = async () => {
+	const res = await (await fetch(url)).json()
+	return res.results
+}
+
+const fetchPlanetName = async (planetURL) => {
+	const res = await (await fetch(planetURL)).json()
+	return res.name
+}
+
+const replaceLinkWithName = async (characters) => {
+	return await Promise.all(
+		characters.map(async (char) => {
+			const planetName = await fetchPlanetName(char.homeworld)
+			char.homeworld = planetName
+			return char
 		})
+	)
+}
+
+const createCards = async () => {
+	const characters = await fetchCharacters()
+
+	const newChars = await replaceLinkWithName(characters)
+
+	newChars.forEach((newCharacter) => {
+		let user = new Pers(
+			newCharacter.name,
+			newCharacter.birth_year,
+			newCharacter.gender,
+			newCharacter.homeworld
+		)
+		user.aCard()
 	})
+}
+
+createCards()
