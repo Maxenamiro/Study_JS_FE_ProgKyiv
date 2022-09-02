@@ -1,1 +1,0 @@
-# Study_JS_FE_ProgKyiv
