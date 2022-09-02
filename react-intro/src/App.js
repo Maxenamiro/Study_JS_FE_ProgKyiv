@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
 
-function App() {
+const months = {
+  title: "Months:",
+  values: ["September", "October", "November", "December", "Other months..."]
+};
+
+const weekDays = {
+  title: "Week Days:",
+  values: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ]
+};
+
+const zodiacSigns = {
+  title: "Zodiac Signs:",
+  values: ["Pisces", "Cancer", "Other signs..."]
+};
+
+const List = ({ list }) => {
+  return (
+    <div>
+      <h2>{list.title}</h2>
+      <ul>
+        {list.values.map((value) => (
+          <li>{value}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <List list={months} />
+      <List list={weekDays} />
+      <List list={zodiacSigns} />
     </div>
   );
 }
-
-export default App;
