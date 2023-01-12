@@ -129,9 +129,7 @@ function okForm(e) {
 		e.preventDefault()
 		alert('Не верно заполнены данные.')
 	} else {
-		//window.location.href =
-        
-        // ТУТ посилання на thank you сторінку
+		window.location.href="/thank-you.html";
     }
 }
 
